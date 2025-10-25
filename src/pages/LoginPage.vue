@@ -1,37 +1,110 @@
 <template>
-  <div class="flex items-center justify-center h-screen bg-gray-100">
-    <div class="bg-white p-6 rounded-2xl shadow-lg w-96">
-      <h2 class="text-2xl font-bold text-center mb-4">Login</h2>
-      <form @submit.prevent="handleLogin" class="space-y-4">
-        <input
-          v-model="identifier"
-          placeholder="Username or Email"
-          class="w-full border rounded px-3 py-2"
-        />
-        <input
-          v-model="password"
-          type="password"
-          placeholder="Password"
-          class="w-full border rounded px-3 py-2"
-        />
-        <button class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600">Login</button>
-      </form>
+  <div class="flex min-h-screen">
+    <!-- Left section with background image -->
+    <div
+      class="hidden md:flex w-1/2 bg-cover bg-center relative"
+      style="background-image: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d')"
+    >
+      <div class="absolute inset-0 bg-black/60 flex items-end p-12">
+        <h2 class="text-white text-3xl font-bold leading-snug">
+          Make your work organized with MileTask.
+        </h2>
+      </div>
+    </div>
+
+    <!-- Right section with login form -->
+    <div class="flex flex-col justify-center items-center w-full md:w-1/2 bg-black text-white p-8">
+      <div class="w-full max-w-md">
+        <h1 class="text-3xl font-bold mb-8 text-center">Sign in</h1>
+
+        <button
+          class="flex items-center justify-center w-full border rounded-md py-2 bg-white text-black mb-6 hover:bg-gray-100"
+        >
+          <img
+            src="https://www.svgrepo.com/show/475656/google-color.svg"
+            alt="Google"
+            class="w-5 h-5 mr-2"
+          />
+          Sign in with Google
+        </button>
+
+        <div class="flex items-center my-4">
+          <div class="flex-grow h-px bg-gray-700"></div>
+          <span class="px-3 text-gray-400 text-sm">or</span>
+          <div class="flex-grow h-px bg-gray-700"></div>
+        </div>
+
+        <form @submit.prevent="login" class="space-y-4">
+          <div>
+            <input
+              v-model="email"
+              type="text"
+              placeholder="Email"
+              class="w-full p-3 rounded-md bg-gray-900 border border-gray-700 focus:outline-none focus:border-teal-400"
+            />
+          </div>
+
+          <div class="relative">
+            <input
+              :type="showPassword ? 'text' : 'password'"
+              v-model="password"
+              placeholder="Password"
+              class="w-full p-3 rounded-md bg-gray-900 border border-gray-700 focus:outline-none focus:border-teal-400"
+            />
+            <button
+              type="button"
+              class="absolute right-3 top-3 text-gray-400 hover:text-white"
+              @click="togglePassword"
+            >
+              <component :is="showPassword ? EyeOff : Eye" class="w-5 h-5" />
+            </button>
+          </div>
+
+          <div class="flex justify-between items-center text-sm">
+            <router-link to="/signup" class="text-gray-400 hover:underline"
+              >Don't have an account? Sign Up</router-link
+            >
+            <router-link to="/forgot-password" class="text-gray-400 hover:underline"
+              >Forgot Password?</router-link
+            >
+          </div>
+
+          <button
+            type="submit"
+            class="w-full bg-teal-500 hover:bg-teal-600 text-white font-semibold py-3 rounded-md transition"
+          >
+            Sign in
+          </button>
+        </form>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import { useAuthStore } from '../stores/auth'
+import axios from 'axios'
 import { useRouter } from 'vue-router'
+import { Eye, EyeOff } from 'lucide-vue-next'
 
-const identifier = ref('')
-const password = ref('')
 const router = useRouter()
-const auth = useAuthStore()
+const email = ref('')
+const password = ref('')
+const showPassword = ref(false)
 
-const handleLogin = async () => {
-  await auth.login(identifier.value, password.value)
-  router.push('/tasks')
+const togglePassword = () => (showPassword.value = !showPassword.value)
+
+const login = async () => {
+  try {
+    const res = await axios.post('http://localhost:5000/login', {
+      email: email.value,
+      password: password.value,
+    })
+    localStorage.setItem('token', res.data.token)
+    router.push('/tasks')
+  } catch (err) {
+    alert('Invalid email or password')
+    console.error(err)
+  }
 }
 </script>
