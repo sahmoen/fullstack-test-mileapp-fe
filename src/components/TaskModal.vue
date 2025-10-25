@@ -20,8 +20,8 @@
 
         <select v-model="form.status" class="w-full border rounded px-3 py-2">
           <option value="pending">Pending</option>
-          <option value="in progress">In Progress</option>
-          <option value="completed">Completed</option>
+          <option value="in-progress">In Progress</option>
+          <option value="done">Done</option>
         </select>
 
         <div class="flex justify-end space-x-2 mt-4">
@@ -65,7 +65,17 @@ watch(
   { immediate: true },
 )
 
+// const saveTask = () => {
+//   emit('save', { ...form })
+// }
+
 const saveTask = () => {
-  emit('save', { ...form })
+  const payload = {
+    title: form.title,
+    description: form.description,
+    status: form.status,
+  }
+  emit('save', payload)
 }
+
 </script>

@@ -21,10 +21,10 @@ import { computed } from 'vue'
 const props = defineProps({ tasks: Array })
 const emit = defineEmits(['move'])
 
-const statuses = ['pending', 'in progress', 'completed']
+const statuses = ['pending', 'in-progress', 'done']
 
 const groupedTasks = computed(() => {
-  const groups = { pending: [], 'in progress': [], completed: [] }
+  const groups = { pending: [], 'in-progress': [], completed: [] }
   props.tasks.forEach((t) => groups[t.status || 'pending'].push(t))
   return groups
 })

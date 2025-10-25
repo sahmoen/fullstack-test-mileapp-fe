@@ -37,9 +37,9 @@
         <form @submit.prevent="login" class="space-y-4">
           <div>
             <input
-              v-model="email"
+              v-model="identifier"
               type="text"
-              placeholder="Email"
+              placeholder="Username"
               class="w-full p-3 rounded-md bg-gray-900 border border-gray-700 focus:outline-none focus:border-teal-400"
             />
           </div>
@@ -87,23 +87,25 @@ import axios from 'axios'
 import { useRouter } from 'vue-router'
 import { Eye, EyeOff } from 'lucide-vue-next'
 
-const router = useRouter()
-const email = ref('')
+const identifier = ref('')
 const password = ref('')
+const router = useRouter()
 const showPassword = ref(false)
 
 const togglePassword = () => (showPassword.value = !showPassword.value)
 
 const login = async () => {
   try {
-    const res = await axios.post('http://localhost:5000/login', {
-      email: email.value,
+    const res = await axios.post('http://localhost:5000/login/login', {
+      identifier: identifier.value,
       password: password.value,
     })
-    localStorage.setItem('token', res.data.token)
+    localStorage.setItem('user', JSON.stringify(res.data.user))
+    localStorage.setItem('role', res.data.user.role)
+    localStorage.setItem('token', res.data.accessToken)
     router.push('/tasks')
   } catch (err) {
-    alert('Invalid email or password')
+    alert('Invalid email, username or password')
     console.error(err)
   }
 }

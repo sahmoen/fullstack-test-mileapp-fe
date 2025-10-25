@@ -1,44 +1,60 @@
-# .
+# MileApp — Frontend
 
-This template should help get you started developing with Vue 3 in Vite.
+> Vue 3 + Vite frontend for MileApp (task management).  
+> Integrated with Tailwind CSS, Axios, and Pinia (state management).
 
-## Recommended IDE Setup
+## 🚀 Setup
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Recommended Browser Setup
-
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd) 
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
+```bash
+cd frontend
 npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
 npm run dev
 ```
 
-### Compile and Minify for Production
+Server runs at `http://localhost:5173` by default.
 
-```sh
-npm run build
-```
+---
 
-### Lint with [ESLint](https://eslint.org/)
+## 🧭 Pages Overview
 
-```sh
-npm run lint
-```
+| Page | Path | Description |
+|------|------|--------------|
+| **LoginPage** | `/login` | User login page |
+| **SignupPage** | `/signup` | Register new user |
+| **ForgotPasswordPage** | `/forgot-password` | Request reset link |
+| **VerifyTokenPage** | `/verify-reset-token` | Verify token before reset |
+| **ResetPasswordPage** | `/reset-password` | Create new password |
+| **TasksPage** | `/tasks` | Main dashboard — list/add/edit/delete tasks |
+| **AddUserPage** | `/add-user` | Admin adds user (with role) |
+
+---
+
+## 🧩 Core Features
+
+- Login + Register + Forgot/Reset password
+- JWT stored securely in `localStorage`
+- Role-based UI (admin vs user)
+- CRUD task management
+- Pagination + Sort + Search + Filter on task list
+- Logout functionality
+- Protected routes using Vue Router guard
+- Responsive design with Tailwind CSS
+
+---
+
+## 🔐 Security Highlights
+
+- Axios interceptor adds Authorization header automatically
+- Route protection via router guard
+- Session persistence using JWT in localStorage
+- Input validations before API calls
+
+---
+
+## ⚙️ Stability & UX Enhancements
+
+- Modern Vue 3 Composition API (`<script setup>`)
+- Modular component structure (`TaskTable`, `TaskModal`)
+- Real-time state updates via Pinia
+- Toast and alert feedbacks for user actions
+- Fast HMR via Vite for developer productivity

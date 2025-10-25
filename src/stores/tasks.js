@@ -15,13 +15,31 @@ export const useTaskStore = defineStore('task', {
       await api.post('/tasks', task)
       await this.fetchTasks()
     },
+    // async updateTask(id, updates) {
+    //   await api.put(`/tasks/${id}`, updates)
+    //   await this.fetchTasks()
+    // },
+    // async deleteTask(id) {
+    //   await api.delete(`/tasks/${id}`)
+    //   await this.fetchTasks()
+    // },
     async updateTask(id, updates) {
-      await api.put(`/tasks/${id}`, updates)
-      await this.fetchTasks()
+      try {
+        await api.put(`/tasks/${id}`, updates)
+        await this.fetchTasks()
+      } catch (err) {
+        console.error('Update task failed:', err.response?.data || err)
+        throw err
+      }
     },
     async deleteTask(id) {
-      await api.delete(`/tasks/${id}`)
-      await this.fetchTasks()
+      try {
+        await api.delete(`/tasks/${id}`)
+        await this.fetchTasks()
+      } catch (err) {
+        console.error('Delete task failed:', err.response?.data || err)
+        throw err
+      }
     },
     async moveTask(id, status) {
       await this.updateTask(id, { status })
