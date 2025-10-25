@@ -54,7 +54,7 @@ const router = useRouter()
 
 const submitEmail = async () => {
   try {
-    await axios.post('http://localhost:5000/login/forgot-password', { email: email.value })
+    await axios.post('https://fullstack-test-mileapp-be-production.up.railway.app/login/forgot-password', { email: email.value })
     alert('Password reset link sent to your email.')
     router.push('/verify-reset-token')
   } catch (err) {

@@ -109,7 +109,7 @@ const selected = ref(null)
 
 const fetchTasks = async () => {
   try {
-    const res = await axios.get("http://localhost:5000/task", {
+    const res = await axios.get("https://fullstack-test-mileapp-be-production.up.railway.app/task", {
       headers: { Authorization: `Bearer ${token}` },
       params: {
         page: meta.value.page,
@@ -160,7 +160,7 @@ const deleteTask = async () => {
 // Logout
 const logout = async () => {
   try {
-    await axios.post("http://localhost:5000/login/logout")
+    await axios.post("https://fullstack-test-mileapp-be-production.up.railway.app/login/logout")
   } catch (err) {
     console.error(err)
   } finally {

@@ -15,7 +15,8 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: 'http://localhost:5000',
+  // baseURL: 'http://localhost:5000',
+  baseURL: 'https://fullstack-test-mileapp-be-production.up.railway.app',
 })
 
 api.interceptors.request.use(

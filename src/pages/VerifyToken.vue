@@ -58,7 +58,7 @@ const router = useRouter()
 
 const verifyToken = async () => {
   try {
-    await axios.get(`http://localhost:5000/login/verify-reset-token/${token.value}`)
+    await axios.get(`https://fullstack-test-mileapp-be-production.up.railway.app/login/verify-reset-token/${token.value}`)
     router.push(`/reset-password?token=${token.value}`)
   } catch (err) {
     error.value = err.response?.data?.message || 'Invalid or expired token.'

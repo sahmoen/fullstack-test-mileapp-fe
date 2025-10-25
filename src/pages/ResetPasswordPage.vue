@@ -69,7 +69,7 @@ const resetPassword = async () => {
   try {
     const token = route.query.token
 
-    await axios.post('http://localhost:5000/login/reset-password', { token, password: password.value })
+    await axios.post('https://fullstack-test-mileapp-be-production.up.railway.app/login/reset-password', { token, password: password.value })
     alert('Password reset successful. You can now log in.')
     router.push('/login')
   } catch (err) {

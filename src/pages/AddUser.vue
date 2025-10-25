@@ -98,7 +98,7 @@ const addUser = async () => {
     const token = localStorage.getItem('token')
 
     await axios.post(
-      'http://localhost:5000/login/register',
+      'https://fullstack-test-mileapp-be-production.up.railway.app/login/register',
       {
         username: username.value,
         email: email.value,

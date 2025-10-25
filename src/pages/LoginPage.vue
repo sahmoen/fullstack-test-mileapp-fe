@@ -96,7 +96,7 @@ const togglePassword = () => (showPassword.value = !showPassword.value)
 
 const login = async () => {
   try {
-    const res = await axios.post('http://localhost:5000/login/login', {
+    const res = await axios.post('https://fullstack-test-mileapp-be-production.up.railway.app/login/login', {
       identifier: identifier.value,
       password: password.value,
     })
